@@ -1,0 +1,37 @@
+import { test, expect } from '@playwright/test';
+
+test('Verify login functionality with valid credentials', async ({ page }) => {
+  await page.goto('http://secure.smartbearsoftware.com/samples/TestComplete11/WebOrders/Login.aspx');
+  await page.getByRole('textbox', { name: 'Username:' }).click();
+  await page.getByRole('textbox', { name: 'Username:' }).fill('Tester');
+  await page.getByRole('textbox', { name: 'Password:' }).click();
+  await page.getByRole('textbox', { name: 'Password:' }).fill('test');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page.locator('h2')).toContainText('List of All Orders');
+  await page.getByRole('link', { name: 'Order', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Quantity:*' }).click();
+  await page.getByRole('textbox', { name: 'Quantity:*' }).fill('250');
+  await page.getByRole('textbox', { name: 'Price per unit:' }).click();
+  await page.getByRole('textbox', { name: 'Price per unit:' }).fill('500');
+  await page.getByRole('textbox', { name: 'Discount:' }).click();
+  await page.getByRole('textbox', { name: 'Discount:' }).fill('15');
+  await page.getByRole('textbox', { name: 'Customer name:*' }).click();
+  await page.getByRole('textbox', { name: 'Customer name:*' }).fill('Goutham');
+  await page.getByRole('textbox', { name: 'Street:*' }).click();
+  await page.getByRole('textbox', { name: 'Street:*' }).fill('whatwer ');
+  await page.getByRole('textbox', { name: 'City:*' }).click();
+  await page.getByRole('textbox', { name: 'City:*' }).fill('USA');
+  await page.getByRole('textbox', { name: 'State:' }).click();
+  await page.getByRole('textbox', { name: 'State:' }).fill('ka');
+  await page.getByRole('textbox', { name: 'Zip:*' }).click();
+  await page.getByRole('textbox', { name: 'Zip:*' }).fill('560098');
+  await page.getByRole('radio', { name: 'Visa' }).check();
+  await page.getByRole('textbox', { name: 'Card Nr:*' }).click();
+  await page.getByRole('textbox', { name: 'Card Nr:*' }).fill('223445567');
+  await page.getByRole('textbox', { name: 'Expire date (mm/yy):*' }).click();
+  await page.getByRole('textbox', { name: 'Expire date (mm/yy):*' }).fill('23/25');
+  await page.getByRole('link', { name: 'Process' }).click();
+  await expect(page.getByRole('strong')).toContainText('New order has been successfully added.');
+  await page.getByRole('link', { name: 'Logout' }).click();
+  await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
+});
